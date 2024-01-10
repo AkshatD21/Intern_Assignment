@@ -1,19 +1,29 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  // Redirect to home if token exists
+  // useEffect(() => {
+  //   const token = localStorage.getItem("authToken");
+  //   if (token) {
+  //     navigate("/home");
+  //   }
+  // }, [navigate]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-   
+
     try {
       const response = await fetch("https://dummyjson.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: "kminchelle",
-          password: "0lelplR",
+          username: username,
+          password: password,
         }),
       });
       if (!response.ok) {
@@ -21,13 +31,15 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log(data);  
+      console.log(data);
 
       // Save the token in local storage
-      localStorage.setItem('authToken', data.token);
+      localStorage.setItem("authToken", data.token);
 
       console.log("Login successful");
       console.log("Token:", data.token);
+
+      navigate("/home");      
     } catch (error) {
       console.error("Error during login:", error.message);
       // You can handle the error and provide feedback to the user
@@ -90,6 +102,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-     
