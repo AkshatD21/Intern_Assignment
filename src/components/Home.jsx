@@ -14,21 +14,21 @@ const HomePage = () => {
   const [maxPrice, setMaxPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
- useEffect(() => {
-   const authToken = localStorage.getItem("authToken");
-   if (authToken) {
-     toast.success("Successfully logged in!", {
-       toastId: "uniqueToastId",
-       position: "top-center",
-       autoClose: 5000,
-       hideProgressBar: false,
-       closeOnClick: true,
-       pauseOnHover: true,
-       draggable: true,
-       progress: undefined,
-     });
-   }
- }, []);
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      toast.success("Successfully logged in!", {
+        toastId: "uniqueToastId",
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     fetch("https://dummyjson.com/products")
@@ -71,6 +71,16 @@ const HomePage = () => {
 
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
+  };
+
+  const removeFromCart = (product) => {
+    const itemIndex = cartItems.findIndex((item) => item.id === product.id);
+
+    if (itemIndex !== -1) {
+      const updatedCart = [...cartItems];
+      updatedCart.splice(itemIndex, 1);
+      setCartItems(updatedCart);
+    }
   };
 
   const getTotalAmount = () => {
@@ -121,8 +131,17 @@ const HomePage = () => {
       >
         Apply Filter
       </button>
-      <ProductList products={filteredProducts} addToCart={addToCart} />
-      <ShoppingCart cartItems={cartItems} totalAmount={getTotalAmount()} />
+      <ProductList
+        products={filteredProducts}
+        addToCart={addToCart}
+        cartItems={cartItems}
+        removeFromCart={removeFromCart}
+      />
+      <ShoppingCart
+        cartItems={cartItems}
+        totalAmount={getTotalAmount()}
+        removeFromCart={removeFromCart}
+      />
       <br />
       <br />
       <Logout />
