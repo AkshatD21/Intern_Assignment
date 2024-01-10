@@ -1,5 +1,7 @@
 // src/pages/HomePage.jsx
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import Logout from "./Logout";
 import ProductList from "../components/ProductList";
 import SearchBar from "../components/SearchBar";
 import ShoppingCart from "../components/ShoppingCart";
@@ -11,6 +13,22 @@ const HomePage = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
+
+ useEffect(() => {
+   const authToken = localStorage.getItem("authToken");
+   if (authToken) {
+     toast.success("Successfully logged in!", {
+       toastId: "uniqueToastId",
+       position: "top-center",
+       autoClose: 5000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+     });
+   }
+ }, []);
 
   useEffect(() => {
     fetch("https://dummyjson.com/products")
@@ -61,6 +79,7 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen p-8 relative">
+      <ToastContainer />
       <SearchBar handleSearch={handleSearch} />
       <div className="mb-4">
         <label
@@ -104,6 +123,9 @@ const HomePage = () => {
       </button>
       <ProductList products={filteredProducts} addToCart={addToCart} />
       <ShoppingCart cartItems={cartItems} totalAmount={getTotalAmount()} />
+      <br />
+      <br />
+      <Logout />
     </div>
   );
 };

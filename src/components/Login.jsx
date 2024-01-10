@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  // Redirect to home if token exists
-  // useEffect(() => {
-  //   const token = localStorage.getItem("authToken");
-  //   if (token) {
-  //     navigate("/home");
-  //   }
-  // }, [navigate]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -39,9 +33,10 @@ const Login = () => {
       console.log("Login successful");
       console.log("Token:", data.token);
 
-      navigate("/home");      
+      navigate("/home");  
     } catch (error) {
       console.error("Error during login:", error.message);
+      toast.error("Wrong credentials!");
       // You can handle the error and provide feedback to the user
     }
   };
@@ -97,7 +92,9 @@ const Login = () => {
           </div>
         </form>
       </div>
+       <ToastContainer position="bottom-center"/>
     </div>
+    
   );
 };
 
