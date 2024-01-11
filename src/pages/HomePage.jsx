@@ -1,4 +1,3 @@
-// src/pages/HomePage.jsx
 import React from "react";
 import Home from "../components/Home";
 

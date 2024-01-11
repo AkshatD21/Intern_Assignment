@@ -1,3 +1,7 @@
+// This is the login functional component.
+// I used navigate function using the useNavigate hook to succesfully navigate to other pages.
+// Used ToastContainer and toast component to bring the notification if you are typing wrong credentials
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,8 +12,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
+  //async function to handle submission
+  //send POST request to the dummy authentication and handles the response
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    //fetch function to send a POST req
 
     try {
       const response = await fetch("https://dummyjson.com/auth/login", {
@@ -37,7 +47,6 @@ const Login = () => {
     } catch (error) {
       console.error("Error during login:", error.message);
       toast.error("Wrong credentials!");
-      // You can handle the error and provide feedback to the user
     }
   };
 

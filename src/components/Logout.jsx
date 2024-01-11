@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 
+
+//The logout functional component to remove the token from the local storage and redirect the user to the login page.
 const Logout = () => {
 
       const navigate = useNavigate();

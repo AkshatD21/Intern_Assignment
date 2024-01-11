@@ -1,6 +1,6 @@
-// src/components/ProductList.jsx
 import React from "react";
 
+// This is the functional component ProductList. It takes 4 props
 const ProductList = ({ products, addToCart, cartItems, removeFromCart }) => {
   const isItemInCart = (productId) =>
     cartItems.some((item) => item.id === productId);
@@ -36,6 +36,7 @@ const ProductList = ({ products, addToCart, cartItems, removeFromCart }) => {
               >
                 Add to Cart
               </button>
+              {/* if the item is present in the cart then only we can remove it */}
               {isItemInCart(product.id) && (
                 <button
                   className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring focus:border-red-300 mt-2 ml-2"

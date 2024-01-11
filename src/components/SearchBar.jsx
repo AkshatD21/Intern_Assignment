@@ -1,6 +1,7 @@
-// src/components/SearchBar.jsx
 import React from "react";
 
+
+// This is the functional SearchBar component. In it handleSearch function prop has been passed
 const SearchBar = ({ handleSearch }) => {
   return (
     <div className="mb-4">

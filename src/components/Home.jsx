@@ -1,4 +1,3 @@
-// src/pages/HomePage.jsx
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Logout from "./Logout";
@@ -13,6 +12,8 @@ const HomePage = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
+
+  // Implementing Toast effect for successfully logging in notification
 
   useEffect(() => {
     const authToken = localStorage.getItem("authToken");
@@ -30,6 +31,9 @@ const HomePage = () => {
     }
   }, []);
 
+
+  // this is the useffect hook to fetch the products from the endpoint
+
   useEffect(() => {
     fetch("https://dummyjson.com/products")
       .then((res) => res.json())
@@ -40,6 +44,8 @@ const HomePage = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+
+  // This function is used to handle the search and price filter.
   const handleSearch = (term) => {
     setSearchTerm(term);
     filterProducts(term, minPrice, maxPrice);
@@ -49,8 +55,12 @@ const HomePage = () => {
     filterProducts(searchTerm, minPrice, maxPrice);
   };
 
+  // The filterproducts function is responsible for filtering the products based on the provided search term.
+
   const filterProducts = (searchTerm, min, max) => {
     let filtered = products;
+
+    //if a search term is provided, it filters the product based on whether the lowercase version of the product title includes the lowercase version of the searchterm.
 
     if (searchTerm) {
       filtered = filtered.filter((product) =>
@@ -69,9 +79,13 @@ const HomePage = () => {
     setFilteredProducts(filtered);
   };
 
+  // Function used to add product in the cart
+
   const addToCart = (product) => {
     setCartItems([...cartItems, product]);
   };
+
+  // Function used to remove product from the cart 
 
   const removeFromCart = (product) => {
     const itemIndex = cartItems.findIndex((item) => item.id === product.id);

@@ -1,4 +1,3 @@
-// src/components/ShoppingCart.jsx
 import React from "react";
 
 const ShoppingCart = ({ cartItems, totalAmount }) => {
@@ -7,7 +6,6 @@ const ShoppingCart = ({ cartItems, totalAmount }) => {
       <div>
         Cart: {cartItems.length} items | Total: ${totalAmount.toFixed(2)}
       </div>
-      {/* You can display individual items in the cart here if needed */}
     </div>
   );
 };

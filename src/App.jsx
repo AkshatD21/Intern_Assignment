@@ -1,4 +1,7 @@
-// App.jsx
+// This is the App.jsx page
+// This is having Login and Home Route
+// The Home route is built under the Protected Route to ensure that only the authorized can access the home page
+
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute"; // Import the ProtectedRoute component
